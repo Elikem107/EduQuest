@@ -136,11 +136,9 @@ function checkAnswer() {
   if (mode === 'dual') {
     let currentPlayerName = turn === 1 ? player1 : player2;
 
-    if (turn === 1) {
-      if (userAnswer === q.answer.toLowerCase()) score1 += points;
-    } else {
-      if (userAnswer === q.answer.toLowerCase()) score2 += points;
-    }
+    // Award points
+    if (turn === 1 && userAnswer === q.answer.toLowerCase()) score1 += points;
+    if (turn === 2 && userAnswer === q.answer.toLowerCase()) score2 += points;
 
     // Feedback
     if (userAnswer === q.answer.toLowerCase()) {
@@ -149,36 +147,49 @@ function checkAnswer() {
       feedback.textContent = `❌ Wrong! Correct answer: ${q.answer}`;
     }
 
+    // Keep the highlight on the current player for now
     updateScoreDisplay();
-    turn = turn === 1 ? 2 : 1;
+
+    // Wait a bit before switching turns
+    setTimeout(() => {
+      // Move to next question
+      currentIndex++;
+      if (currentIndex < englishQuestions.length) {
+        // Switch turn after feedback delay
+        turn = turn === 1 ? 2 : 1;
+        updateScoreDisplay(); // update highlight for next player
+        loadQuestion();
+      } else {
+        // End game
+        let winner =
+          score1 > score2 ? player1 : score2 > score1 ? player2 : 'Tie';
+        alert(`Game Over!\n${player1}: ${score1}\n${player2}: ${score2}\nWinner: ${winner}`);
+      }
+    }, 1500);
 
   } else {
+    // Solo mode
     if (userAnswer === q.answer.toLowerCase()) {
       score += points;
       feedback.textContent = `✅ Correct! You scored ${points} points`;
     } else {
       feedback.textContent = `❌ Wrong! Correct answer: ${q.answer}`;
     }
-    updateScoreDisplay();
-  }
 
-  // Next question
-  currentIndex++;
-  if (currentIndex < englishQuestions.length) {
-    setTimeout(loadQuestion, 1500);
-  } else {
-    setTimeout(() => {
-      if (mode === 'dual') {
-        let winner = score1 > score2 ? player1 : score2 > score1 ? player2 : 'Tie';
-        alert(`Game Over!\n${player1}: ${score1}\n${player2}: ${score2}\nWinner: ${winner}`);
-      } else {
+    updateScoreDisplay();
+
+    // Move to next question
+    currentIndex++;
+    if (currentIndex < englishQuestions.length) {
+      setTimeout(loadQuestion, 1500);
+    } else {
+      setTimeout(() => {
         alert(`Game Over! Your total score: ${score}`);
-      }
-    }, 500);
+      }, 500);
+    }
   }
 }
 
-// Update score display
 function updateScoreDisplay() {
   if (mode === 'dual') {
     scoreDisplay.innerHTML = `
@@ -189,10 +200,10 @@ function updateScoreDisplay() {
     scoreDisplay.textContent = `Score: ${score}`;
   }
 }
-
 // Event listeners
 submitBtn.addEventListener('click', checkAnswer);
 answerInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') checkAnswer(); });
 
 // Initialize
 document.addEventListener('DOMContentLoaded', startGame);
+
