@@ -1,0 +1,266 @@
+/* Reset & basics */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+body {
+  background: linear-gradient(to bottom, #fffae3, #b3f0ff);
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container */
+.menu-container {
+  width: 95%;
+  max-width: 480px;
+  text-align: center;
+}
+
+/* Header */
+header h1 {
+  font-size: 3rem; /* increased */
+  color: #ff6347;
+  text-shadow: 2px 2px #ffe066;
+}
+
+header .subtitle {
+  font-size: 1.5rem; /* increased */
+  color: #008080;
+  margin-bottom: 25px;
+}
+
+/* Mode Toggle */
+.mode-toggle {
+  margin-bottom: 30px;
+}
+
+.mode {
+  background-color: #ffcc00;
+  border: 2px solid #ffa500;
+  border-radius: 12px; /* slightly bigger */
+  padding: 12px 25px; /* bigger padding */
+  margin: 0 5px;
+  font-size: 1.2rem; /* increased */
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.mode.active {
+  background-color: #ff8c00;
+  color: #fff;
+}
+
+.mode:hover {
+  transform: scale(1.1);
+}
+
+/* Subject Grid */
+.subject-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px; /* slightly bigger */
+  margin-bottom: 25px;
+}
+
+.subject-card {
+  background: linear-gradient(135deg, #ffe066, #ff6347);
+  border-radius: 18px; /* slightly bigger */
+  padding: 20px; /* bigger padding */
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.5rem; /* increased */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.subject-card img {
+  width: 70px; /* bigger icons */
+  height: 70px;
+  margin-bottom: 12px;
+}
+
+.subject-card:hover {
+  transform: scale(1.07);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+}
+
+/* Footer */
+footer {
+  margin-top: 20px;
+  font-size: 1rem; /* increased */
+  color: #555;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .subject-grid {
+    grid-template-columns: 1fr;
+  }
+  header h1 {
+    font-size: 2.5rem; /* increased for mobile */
+  }
+  header .subtitle {
+    font-size: 1.3rem;
+  }
+  .mode {
+    font-size: 1.1rem;
+    padding: 10px 20px;
+  }
+  .subject-card {
+    font-size: 1.3rem;
+    padding: 18px;
+  }
+  .subject-card img {
+    width: 60px;
+    height: 60px;
+  }
+  footer {
+    font-size: 0.9rem;
+  }
+}
+/* Game Page Styles */
+.subject-container header h1 {
+  font-size: 2.8rem; /* bigger */
+  color: #ff6347;
+  text-shadow: 2px 2px #ffe066;
+}
+
+.subject-container header .subtitle {
+  font-size: 1.6rem; /* bigger */
+  color: #008080;
+  margin-bottom: 25px;
+}
+
+#game-area {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+#question-text {
+  font-size: 1.6rem; /* bigger question text */
+  margin-bottom: 15px;
+}
+
+.question-img {
+  width: 120px; /* bigger image */
+  height: auto;
+  margin-bottom: 15px;
+}
+
+#answer-input {
+  font-size: 1.4rem; /* bigger input */
+  padding: 10px;
+  width: 80%;
+  max-width: 300px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 2px solid #ffa500;
+  text-align: center;
+}
+
+#submit-btn {
+  font-size: 1.5rem; /* bigger button */
+  padding: 10px 25px;
+  border-radius: 10px;
+  background-color: #ffcc00;
+  border: 2px solid #ffa500;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+#submit-btn:hover {
+  transform: scale(1.05);
+  background-color: #ff8c00;
+  color: #fff;
+}
+
+#feedback {
+  font-size: 1.4rem; /* bigger feedback */
+  margin-top: 10px;
+  min-height: 1.5em;
+}
+
+#score-display {
+  font-size: 1.5rem; /* bigger score display */
+  margin-top: 15px;
+}
+
+.back-btn {
+  font-size: 1.2rem; /* bigger back button */
+  text-decoration: none;
+  color: #008080;
+}
+/* Dual Mode Display */
+#score-display {
+  font-size: 1.6rem; /* bigger */
+  margin-top: 20px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 12px;
+  background-color: #ffe066;
+  color: #333;
+}
+
+#score-display .current-turn {
+  color: #ff6347;
+  font-weight: 900;
+  text-decoration: underline;
+}
+
+#score-display .player1,
+#score-display .player2 {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+/* Optional: colorful highlight for current player's turn */
+.turn-highlight {
+  background-color: #ff8c00;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+.sequence-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+}
+
+.sequence-item {
+  background-color: #ffe066;
+  border: 2px solid #ff6347;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  cursor: grab;
+  font-size: 1.2rem;
+  user-select: none;
+}
+
+.sequence-item:active {
+  cursor: grabbing;
+  background-color: #ffcc00;
+}
+.subject-card img {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 10px;
+  transition: transform 0.3s;
+}
+
+.subject-card img:hover {
+  transform: scale(1.1);
+}
