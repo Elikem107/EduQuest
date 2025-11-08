@@ -154,7 +154,7 @@ function checkAnswer() {
     setTimeout(() => {
       // Move to next question
       currentIndex++;
-      if (currentIndex < englishQuestions.length) {
+      if (currentIndex < 10) {
         // Switch turn after feedback delay
         turn = turn === 1 ? 2 : 1;
         updateScoreDisplay(); // update highlight for next player
@@ -206,4 +206,5 @@ answerInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') checkAnswe
 
 // Initialize
 document.addEventListener('DOMContentLoaded', startGame);
+
 
