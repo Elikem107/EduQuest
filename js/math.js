@@ -161,7 +161,7 @@ function loadQuestion() {
   questionText.textContent = q.question;
   answerInput.value = '';
   feedback.textContent = '';
-  answerInput.focus();
+  answerInput.focus(); 
 }
 
 // Check answer
@@ -173,13 +173,11 @@ function checkAnswer() {
   if (mode === 'dual') {
     let currentPlayerName = turn === 1 ? player1 : player2;
 
-    // Update score
-    if (turn === 1) {
-      if (userAnswer === q.answer) score1 += points;
-    } else {
-      if (userAnswer === q.answer) score2 += points;
-    }
 
+    // Award points
+    if (turn === 1 && userAnswer === q.answer.toLowerCase()) score1 += points;
+    if (turn === 2 && userAnswer === q.answer.toLowerCase()) score2 += points;
+    
     // Feedback
     if (userAnswer === q.answer) {
       feedback.textContent = `✅ Correct! ${currentPlayerName} scored ${points} points`;
@@ -188,9 +186,22 @@ function checkAnswer() {
     }
 
     updateScoreDisplay();
-
-    // Switch turn
-    turn = turn === 1 ? 2 : 1;
+    // Wait a bit before switching turns
+    setTimeout(() => {
+      // Move to next question
+      currentIndex++;
+      if (currentIndex < 20) {
+        // Switch turn after feedback delay
+        turn = turn === 1 ? 2 : 1;
+        updateScoreDisplay(); // update highlight for next player
+        loadQuestion();
+      } else {
+        // End game
+        let winner =
+          score1 > score2 ? player1 : score2 > score1 ? player2 : 'Tie';
+        alert(`Game Over!\n${player1}: ${score1}\n${player2}: ${score2}\nWinner: ${winner}`);
+      }
+    }, 1500);
 
   } else {
     // Solo mode
@@ -219,7 +230,7 @@ function checkAnswer() {
   }
 }
 
-// Update score display
+
 function updateScoreDisplay() {
   if (mode === 'dual') {
     scoreDisplay.innerHTML = `
@@ -237,3 +248,4 @@ answerInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') checkAnswe
 
 // Initialize
 document.addEventListener('DOMContentLoaded', startGame);
+
